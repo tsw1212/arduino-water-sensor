@@ -1,57 +1,40 @@
-# 💧 מערכת חכמה לניהול מים וחימום עם ESP32
+# 💧 Smart Water and Heating Control System with ESP32
 
-פרויקט זה מבוסס על בקר ESP32 ומטרתו לנהל מערכת מים בצורה חכמה: למדוד את גובה המים, את הטמפרטורה שלהם, ולשלוט על ברז חשמלי וגוף חימום בהתאם לנתונים בזמן אמת.
+This project uses an ESP32 microcontroller to create a smart system that monitors water level and temperature, and controls a heating element and electric valve accordingly.
 
 ---
 
-## 🚀 רכיבים עיקריים
+## 🚀 Main Components
 
 - **ESP32 DevKit**
-- **חיישן מרחק אולטרסוני (Ultrasonic)** – למדידת גובה המים
-- **חיישן טמפרטורה DS18B20** – למדידת טמפרטורת המים
-- **Relay x2** – אחד להפעלת גוף חימום ואחד לברז חשמלי
-- **ספריות:**
+- **Ultrasonic Distance Sensor** – for measuring water level
+- **DS18B20 Temperature Sensor** – for measuring water temperature
+- **2 x Relays** – one for the heater, one for the electric valve
+- **Libraries:**
   - `OneWire`
   - `DallasTemperature`
-  - `Preferences` – לשמירת שם המשתמש בזיכרון הפנימי
+  - `Preferences` – to store user name in non-volatile memory
 
 ---
 
-## ⚙️ פונקציונליות
+## ⚙️ Features
 
-### מד טמפרטורה (DS18B20)
-- מבצע קריאת טמפרטורה מדויקת במעלות צלזיוס
-- במידה והחיישן לא מחובר או הערך חריג – נחשב לקריאה לא תקינה
+### Temperature Sensor (DS18B20)
+- Measures water temperature in °C
+- Invalid readings are detected (disconnected sensor or out-of-range values)
 
-### מד גובה מים (Ultrasonic)
-- מודד את המרחק מהחיישן לפני המים
-- אם המרחק גדול מהמוגדר – נחשב "מים בגובה נמוך"
+### Water Level Sensor (Ultrasonic)
+- Measures distance from the sensor to the water surface
+- If the distance is greater than the defined threshold → considered low water level
 
-### לוגיקה עסקית
-- **ברז** נפתח אם גובה המים נמוך
-- **גוף החימום** פעיל רק כאשר:
-  - גובה המים תקין
-  - הטמפרטורה תקינה ולא עולה על `40°C`
-
----
-
-## 📝 תכונות נוספות
-
-- שמירת שם משתמש בזיכרון הלא נדיף של ESP32 (באמצעות `Preferences`)
-- הדפסה סדרתית של סטטוס חיישנים והפלטים
+### Control Logic
+- **Valve** turns on when the water level is low
+- **Heater** turns on only when:
+  - Water level is valid
+  - Temperature is valid and below `40°C`
 
 ---
 
-## 📦 מבנה הקוד
+## 📝 Additional Features
 
-```cpp
-setup() {
-  // הגדרת פינים, הפעלת חיישנים, הדפסת סטטוס
-}
-
-loop() {
-  // קריאת חיישנים
-  // החלטה אם להפעיל ברז/חימום
-  // הדפסת סטטוס
-  // השהייה של 10 שניות
-}
+- User name is stored in ESP32’s non-volatile memory usin
