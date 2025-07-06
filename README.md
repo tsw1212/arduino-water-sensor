@@ -35,6 +35,9 @@ This project uses an ESP32 microcontroller to create a smart system that monitor
 
 ---
 
-## 📝 Additional Features
+### 🛡️ Sensor Protection
+A 4.7kΩ pull-up resistor should be added between DATA and VCC on the DS18B20
 
-- User name is stored in ESP32’s non-volatile memory usin
+Consider powering sensors from an isolated 5V supply if needed
+
+
